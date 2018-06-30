@@ -100,9 +100,7 @@ public class Main {
                     }
 
                 }
-                else {
-                    sum = sum + fileLength(file);
-                }
+                else sum = sum + fileLength(file);
             }
         }
         if (!size) {
