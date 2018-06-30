@@ -34,6 +34,8 @@ class Du{
         resultListCmd(mainDU.mainFunction(fileN));
     }
 
+    //Комманды ввода в консоль
+
     @Option(name = "-h", usage = "format")
     private boolean format = false;
 
@@ -47,7 +49,7 @@ class Du{
     private String[] fileN;
 
 
-public class Main {
+ private class Main {
     private boolean format;
     private boolean size;
     private boolean si;
@@ -58,6 +60,8 @@ public class Main {
             return true;
         else return false;
     }
+
+    //Функция реализующая комманды
 
     private Main(boolean format, boolean size, boolean si){
         this.format = format;
