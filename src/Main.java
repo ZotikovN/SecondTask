@@ -52,13 +52,15 @@ public class Main {
     }
 
     private void resultList (ArrayList finalResult) {
-        for (Object i:finalResult) System.out.println(i);
+        for (Object i:finalResult) {
+            System.out.println(i);
+        }
     }
 
     private ArrayList mainFunction(String[] fileN){
         int nSi;
         int f;
-        long sum = 0;
+        long sum;
         long fSize;
         long sep;
         ArrayList result = new ArrayList();
@@ -68,6 +70,7 @@ public class Main {
         else {
             nSi = 1000;
         }
+        sum = 0;
         for (String i:fileN){
             File file = new File(i);
             if (file.exists()) {
@@ -120,15 +123,15 @@ public class Main {
     long fileLength(File file) {
         long x = 0;
         if (fileLengthChk(file)) {
-            File[] files = file.listFiles();
-            for (int i = 0; i <= files.length - 1; i++) {
-                if (!files[i].isDirectory()) x = x + files[i].length();
-                else x = x + fileLength(files[i]);
-            }
-            return x;
+        File[] files = file.listFiles();
+        for (int i = 0; i <= files.length - 1; i++) {
+            if (!files[i].isDirectory()) x = x + files[i].length();
+            else x = x + fileLength(files[i]);
         }
-        else return file.length();
+        return x;
     }
+        else return file.length();
+}
 }
 }
 
