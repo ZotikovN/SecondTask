@@ -26,16 +26,16 @@ class MainLauncher{
         result = mainDU.mainFunction(fileN);
     }
 
-    @Option(name = "-h", usage = "Normal format")
+    @Option(name = "-h", usage = "format")
     private boolean format = false;
 
-    @Option(name = "-c", usage = "Size")
+    @Option(name = "-c", usage = "size")
     private boolean size = false;
 
-    @Option(name = "--si", usage = "Another unit")
+    @Option(name = "--si", usage = "si")
     private boolean si = false;
 
-    @Argument(metaVar = "fileN", usage = "Input file names")
+    @Argument(metaVar = "fileN", usage = "file name")
     private String[] fileN;
 
 
@@ -71,9 +71,9 @@ public class Main {
         for (String i:fileN){
             File file = new File(i);
             if (file.exists()) {
-                if (size) sum = sum + fileSize(file);
+                if (size) sum = sum + fileLength(file);
                 else {
-                    fSize = fileSize(file);
+                    fSize = fileLength(file);
                     if (format) {
                         f = 0;
                         sep = fSize/nSi;
@@ -111,21 +111,21 @@ public class Main {
         return result;
     }
 
-    boolean fileSizeChk(File file) {
+    boolean fileLengthChk(File file) {
         if (!file.isFile())
             return true;
         else return false;
     }
 
-    long fileSize(File file) {
-        long a = 0;
-        if (fileSizeChk(file)) {
+    long fileLength(File file) {
+        long x = 0;
+        if (fileLengthChk(file)) {
             File[] files = file.listFiles();
             for (int i = 0; i <= files.length - 1; i++) {
-                if (!files[i].isDirectory()) a = a + files[i].length();
-                else a = a + fileSize(files[i]);
+                if (!files[i].isDirectory()) x = x + files[i].length();
+                else x = x + fileLength(files[i]);
             }
-            return a;
+            return x;
         }
         else return file.length();
     }
