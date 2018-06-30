@@ -20,10 +20,10 @@ class Du{
         }
     }
 
-    private void launch(List<String> args) {
+    private void launch(List<String> files) {
         CmdLineParser cmd = new CmdLineParser(this);
         try {
-            cmd.parseArgument(args);
+            cmd.parseArgument(files);
         }
         catch (CmdLineException a) {
             System.err.println(a.getMessage());
@@ -115,7 +115,7 @@ public class Main {
             result.add("Размер каталога " + sum + unit[f]);
         } else
             {
-                sum /= nSi;
+                sum = sum / nSi;
                 result.add("Размер каталога " + sum);
             }
         return result;
