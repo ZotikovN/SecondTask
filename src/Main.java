@@ -53,7 +53,7 @@ public class Main {
     private boolean si;
     private String[] unit = {"B", "KB", "MB", "GB"};
 
-    boolean fileLengthChk(File file) {
+    private boolean fileLengthChk(File file) {
         if (!file.isFile())
             return true;
         else return false;
@@ -120,7 +120,7 @@ public class Main {
         return result;
     }
 
-    long fileLength(File file) {
+    private long fileLength(File file) {
         long length = 0;
         File[] files = file.listFiles();
         if (fileLengthChk(file)) {
