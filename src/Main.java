@@ -7,23 +7,31 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-class MainLauncher{
+class Du{
+    public static void main(List<String> args) {
+        new Du().launch(args);
+    }
+
     public static ArrayList result = new ArrayList();
 
-    public static void main(List<String> args) {
-        new MainLauncher().launch(args);
+    private void resultListCmd (ArrayList finalResult) {
+        for (Object i:finalResult) {
+            System.out.println(i);
+        }
     }
 
     private void launch(List<String> args) {
         CmdLineParser cmd = new CmdLineParser(this);
         try {
             cmd.parseArgument(args);
-        } catch (CmdLineException e) {
-            return;
+        }
+        catch (CmdLineException a) {
+            System.err.println(a.getMessage());
+            cmd.printUsage(System.err);
         }
         Main mainDU = new Main(format, size, si);
-        mainDU.resultList(mainDU.mainFunction(fileN));
         result = mainDU.mainFunction(fileN);
+        resultListCmd(mainDU.mainFunction(fileN));
     }
 
     @Option(name = "-h", usage = "format")
@@ -45,16 +53,16 @@ public class Main {
     private boolean si;
     private String[] unit = {"B", "KB", "MB", "GB"};
 
-    private Main(boolean format,boolean size, boolean si){
+    boolean fileLengthChk(File file) {
+        if (!file.isFile())
+            return true;
+        else return false;
+    }
+
+    private Main(boolean format, boolean size, boolean si){
         this.format = format;
         this.size = size;
         this.si = si;
-    }
-
-    private void resultList (ArrayList finalResult) {
-        for (Object i:finalResult) {
-            System.out.println(i);
-        }
     }
 
     private ArrayList mainFunction(String[] fileN){
@@ -77,58 +85,50 @@ public class Main {
                 if (size) sum = sum + fileLength(file);
                 else {
                     fSize = fileLength(file);
-                    if (format) {
+                    if (!format) {
+                        fSize = fSize / nSi;
+                        result.add(i + " " + fSize);
+                    }
+                    else{
                         f = 0;
                         sep = fSize/nSi;
                         while (sep > 0) {
-                            f += 1;
+                            f = f + 1;
                             fSize = fSize / nSi;
                             sep = fSize / nSi;
                         }
                         result.add(i + " " + fSize + unit[f]);
                     }
-                    else{
-                        fSize = fSize / nSi;
-                        result.add(i + " " + fSize);
-                    }
                 }
             }
-            else
-                {
-                    throw new IllegalArgumentException();
-                }
         }
-        if (size) {
-            if (format) {
-                f = 0;
-                while (sum / nSi > 0) {
-                    f += 1;
-                    sum = sum / nSi;
-                }
-                result.add("Размер каталога " + sum + unit[f]);
-            } else {
+        if (!size) {
+            return result;
+        }
+        if (format) {
+            f = 0;
+            while (sum / nSi > 0) {
+                f += 1;
+                sum = sum / nSi;
+            }
+            result.add("Размер каталога " + sum + unit[f]);
+        } else
+            {
                 sum /= nSi;
                 result.add("Размер каталога " + sum);
             }
-        }
         return result;
     }
 
-    boolean fileLengthChk(File file) {
-        if (!file.isFile())
-            return true;
-        else return false;
-    }
-
     long fileLength(File file) {
-        long x = 0;
-        if (fileLengthChk(file)) {
+        long length = 0;
         File[] files = file.listFiles();
-        for (int i = 0; i <= files.length - 1; i++) {
-            if (!files[i].isDirectory()) x = x + files[i].length();
-            else x = x + fileLength(files[i]);
+        if (fileLengthChk(file)) {
+            for (File i: files) {
+            if (!i.isDirectory()) length = length + i.length();
+            else length = length + fileLength(i);
         }
-        return x;
+        return length;
     }
         else return file.length();
 }
