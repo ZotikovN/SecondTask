@@ -82,8 +82,7 @@ public class Main {
         for (String i:fileN){
             File file = new File(i);
             if (file.exists()) {
-                if (size) sum = sum + fileLength(file);
-                else {
+                if (!size) {
                     fSize = fileLength(file);
                     if (!format) {
                         fSize = fSize / nSi;
@@ -99,6 +98,10 @@ public class Main {
                         }
                         result.add(i + " " + fSize + unit[f]);
                     }
+
+                }
+                else {
+                    sum = sum + fileLength(file);
                 }
             }
         }
