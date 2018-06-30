@@ -61,13 +61,13 @@ class Du{
         else return false;
     }
 
-    //Функция реализующая комманды
-
     private Main(boolean format, boolean size, boolean si){
         this.format = format;
         this.size = size;
         this.si = si;
     }
+
+     //Функция реализующая комманды ввода в консоль
 
     private ArrayList mainFunction(String[] fileN){
         int nSi;
