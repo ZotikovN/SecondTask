@@ -12,8 +12,8 @@ public class test {
         List<String> expected = new ArrayList<>();
         List<String> res = Arrays.asList("-h", "--si" ,"src/forTest/kojima.jpg");
         expected.add("src/forTest/kojima.jpg 39KB");
-        MainLauncher.main(res);
-        assertEquals(expected, MainLauncher.result);
+        Du.main(res);
+        assertEquals(expected, Du.result);
     }
 
 
@@ -22,8 +22,8 @@ public class test {
         List<String> expected = new ArrayList<>();
         List<String> res = Arrays.asList("src/forTest/example.txt");
         expected.add("src/forTest/example.txt 2");
-        MainLauncher.main(res);
-        assertEquals(expected, MainLauncher.result);
+        Du.main(res);
+        assertEquals(expected, Du.result);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class test {
         List<String> expected = new ArrayList<>();
         List<String> res = Arrays.asList("-h", "-c", "src/forTest/example.txt" ,"src/forTest/kojima.jpg");
         expected.add("Размер каталога 42KB");
-        MainLauncher.main(res);
-        assertEquals(expected, MainLauncher.result);
+        Du.main(res);
+        assertEquals(expected, Du.result);
     }
 }
