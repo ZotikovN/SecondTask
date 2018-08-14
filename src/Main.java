@@ -7,61 +7,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-class Du{
-    public static void main(List<String> args) {
-        new Du().launch(args);
-    }
-
-    public static ArrayList result = new ArrayList();
-
-    private void resultListCmd (ArrayList finalResult) {
-        for (Object i:finalResult) {
-            System.out.println(i);
-        }
-    }
-
-    private void launch(List<String> files) {
-        CmdLineParser cmd = new CmdLineParser(this);
-        try {
-            cmd.parseArgument(files);
-        }
-        catch (CmdLineException a) {
-            System.err.println(a.getMessage());
-            cmd.printUsage(System.err);
-        }
-        Main mainDU = new Main(format, size, si);
-        result = mainDU.mainFunction(fileN);
-        resultListCmd(mainDU.mainFunction(fileN));
-    }
-
-    //Комманды ввода в консоль
-
-    @Option(name = "-h", usage = "format")
-    private boolean format = false;
-
-    @Option(name = "-c", usage = "size")
-    private boolean size = false;
-
-    @Option(name = "--si", usage = "si")
-    private boolean si = false;
-
-    @Argument(metaVar = "fileN", usage = "file name")
-    private String[] fileN;
 
 
- private class Main {
+
+ public class Main {
     private boolean format;
     private boolean size;
     private boolean si;
     private String[] unit = {"B", "KB", "MB", "GB"};
 
-    private boolean fileLengthChk(File file) {
-        if (!file.isFile())
-            return true;
-        else return false;
-    }
 
-    private Main(boolean format, boolean size, boolean si){
+    Main(boolean format, boolean size, boolean si){
         this.format = format;
         this.size = size;
         this.si = si;
@@ -69,7 +25,7 @@ class Du{
 
      //Функция реализующая комманды ввода в консоль
 
-    private ArrayList mainFunction(String[] fileN){
+     ArrayList mainFunction(String[] fileN){
         int nSi;
         int f;
         long sum;
@@ -87,14 +43,14 @@ class Du{
             File file = new File(i);
             if (file.exists()) {
                 if (!size) {
-                    fSize = fileLength(file);
+                    fSize = Du.fileLength(file);
+                    sep = fSize / nSi;
                     if (!format) {
                         fSize = fSize / nSi;
                         result.add(i + " " + fSize);
                     }
                     else{
                         f = 0;
-                        sep = fSize/nSi;
                         while (sep > 0) {
                             f = f + 1;
                             fSize = fSize / nSi;
@@ -104,7 +60,7 @@ class Du{
                     }
 
                 }
-                else sum = sum + fileLength(file);
+                else sum = sum + Du.fileLength(file);
             }
         }
         if (!size) {
@@ -116,27 +72,17 @@ class Du{
                 f += 1;
                 sum = sum / nSi;
             }
-            result.add("Размер каталога " + sum + unit[f]);
+            result.add("Размер каталога составляет " + sum + unit[f]);
         } else
             {
                 sum = sum / nSi;
-                result.add("Размер каталога " + sum);
+                result.add("Размер каталога составляет " + sum);
             }
         return result;
     }
 
-    private long fileLength(File file) {
-        long length = 0;
-        File[] files = file.listFiles();
-        if (fileLengthChk(file)) {
-            for (File i: files) {
-            if (!i.isDirectory()) length = length + i.length();
-            else length = length + fileLength(i);
-        }
-        return length;
-    }
-        else return file.length();
+
 }
-}
-}
+
+
 

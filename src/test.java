@@ -30,7 +30,7 @@ public class test {
     public void testN3() {
         List<String> expected = new ArrayList<>();
         List<String> res = Arrays.asList("-h", "-c", "src/forTest/example.txt" ,"src/forTest/kojima.jpg");
-        expected.add("Размер каталога 42KB");
+        expected.add("Размер каталога составляет 42KB");
         Du.main(res);
         assertEquals(expected, Du.result);
     }
