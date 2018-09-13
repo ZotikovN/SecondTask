@@ -16,7 +16,6 @@ import java.util.List;
     private boolean si;
     private String[] unit = {"B", "KB", "MB", "GB"};
 
-
     Main(boolean format, boolean size, boolean si){
         this.format = format;
         this.size = size;
@@ -77,7 +76,6 @@ import java.util.List;
         }
         return result;
     }
-
 
 
     private static long fileLength(File file) {
