@@ -15,11 +15,11 @@ public class Du {
         new Du().launch(args);
     }
 
-    public static ArrayList result = new ArrayList();
+    public static List result = new ArrayList();
 
-    private void resultListCmd(ArrayList finalResult) {
+    private void resultListCmd(List finalResult) {
         for (Object i : finalResult) {
-            System.out.println(i);
+            System.out.println("File(s) size is " + i);
         }
     }
 
@@ -46,17 +46,5 @@ public class Du {
 
     @Option(name = "--si", usage = "si")
     private boolean si = false;
-
-    public static long fileLength(File file) {
-        long length = 0;
-        File[] files = file.listFiles();
-        if (!file.isFile()) {
-            for (File i : files) {
-                if (!i.isDirectory()) length = length + i.length();
-                else length = length + fileLength(i);
-            }
-            return length;
-        } else return file.length();
-    }
 
 }

@@ -25,29 +25,26 @@ import java.util.List;
 
      //Функция реализующая комманды ввода в консоль
 
-     ArrayList mainFunction(String[] fileN){
-        int nSi;
+     List mainFunction(String[] fileN){
+        int nSi = 1000;
         int f;
         long sum;
         long fSize;
         long sep;
-        ArrayList result = new ArrayList();
+        List result = new ArrayList();
         if (si){
             nSi = 1024;
-        }
-        else {
-            nSi = 1000;
         }
         sum = 0;
         for (String i:fileN){
             File file = new File(i);
             if (file.exists()) {
                 if (!size) {
-                    fSize = Du.fileLength(file);
+                    fSize = fileLength(file);
                     sep = fSize / nSi;
                     if (!format) {
                         fSize = fSize / nSi;
-                        result.add(i + " " + fSize);
+                        result.add(fSize);
                     }
                     else{
                         f = 0;
@@ -56,30 +53,44 @@ import java.util.List;
                             fSize = fSize / nSi;
                             sep = fSize / nSi;
                         }
-                        result.add(i + " " + fSize + unit[f]);
+                        result.add(fSize + unit[f]);
                     }
 
                 }
-                else sum = sum + Du.fileLength(file);
+                else sum = sum + fileLength(file);
             }
         }
-        if (!size) {
-            return result;
-        }
-        if (format) {
-            f = 0;
-            while (sum / nSi > 0) {
-                f += 1;
-                sum = sum / nSi;
-            }
-            result.add("Размер каталога составляет " + sum + unit[f]);
-        } else
+        if (size) {
+            if (format) {
+                f = 0;
+                while (sum / nSi > 0) {
+                    f += 1;
+                    sum = sum / nSi;
+                }
+                result.add(sum + unit[f]);
+            } else
             {
                 sum = sum / nSi;
-                result.add("Размер каталога составляет " + sum);
+                result.add(sum);
             }
+            return result;
+        }
         return result;
     }
+
+
+
+    private static long fileLength(File file) {
+         long length = 0;
+         File[] files = file.listFiles();
+         if (!file.isFile()) {
+             for (File i : files) {
+                 if (!i.isDirectory()) length = length + i.length();
+                 else length = length + fileLength(i);
+             }
+             return length;
+         } else return file.length();
+     }
 
 
 }
