@@ -85,8 +85,9 @@ import java.util.List;
          if (!file.isFile()) {
              //пересчет файлов
              for (File i : files) {
-                 //проверка на то, является ли объект файлом
+                 //проверка на то, является ли объект файлом, если нет, то это каталог
                  if (i.isFile()) length = length + fileLength(i);
+                 else length = length + i.length();
              }
              return length;
          } else return file.length();
