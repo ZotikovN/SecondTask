@@ -12,7 +12,7 @@ public class test {
     public void testN1() {
         List<String> expected = new ArrayList<>();
         List<String> res = Arrays.asList("-h", "--si" ,"src/forTest/kojima.jpg");
-        expected.add("39KB");
+        expected.add("39KB (src/forTest/kojima.jpg)");
         Du.main(res);
         assertEquals(expected, Du.result);
     }
@@ -23,8 +23,8 @@ public class test {
         List<String> expected = new ArrayList<>();
         List<String> res = Collections.singletonList("src/forTest/kojima.jpg");
         Du.main(res);
-        String result = Du.result.toString();
-        assertEquals("[40]", result);
+        expected.add("40 (src/forTest/kojima.jpg)");
+        assertEquals(expected, Du.result);
     }
 
     @Test
@@ -39,8 +39,8 @@ public class test {
     @Test
     public void testN4() {
         List<String> expected = new ArrayList<>();
-        List<String> res = Arrays.asList("-h", "-c","src/forTest");
-        expected.add("42KB");
+        List<String> res = Arrays.asList("-h","src/forTest");
+        expected.add("42KB (src/forTest)");
         Du.main(res);
         assertEquals(expected, Du.result);
     }

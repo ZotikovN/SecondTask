@@ -41,9 +41,10 @@ import java.util.List;
                 if (!size) {
                     fSize = fileLength(file);
                     sep = fSize / nSi;
+                    String direction =  " " + "(" + i + ")";
                     if (!format) {
                         fSize = fSize / nSi;
-                        result.add(fSize);
+                        result.add(fSize + direction);
                     }
                     else{
                         f = 0;
@@ -52,7 +53,7 @@ import java.util.List;
                             fSize = fSize / nSi;
                             sep = fSize / nSi;
                         }
-                        result.add(fSize + unit[f]);
+                        result.add(fSize + unit[f] + direction);
                     }
 
                 }
@@ -83,8 +84,7 @@ import java.util.List;
          File[] files = file.listFiles();
          if (!file.isFile()) {
              for (File i : files) {
-                 if (!i.isDirectory()) length = length + i.length();
-                 else length = length + fileLength(i);
+                 length = length + fileLength(i);
              }
              return length;
          } else return file.length();
