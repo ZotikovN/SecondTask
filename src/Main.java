@@ -83,8 +83,10 @@ import java.util.List;
          long length = 0;
          File[] files = file.listFiles();
          if (!file.isFile()) {
+             //пересчет файлов
              for (File i : files) {
-                 length = length + fileLength(i);
+                 //проверка на то, является ли объект файлом
+                 if (i.isFile()) length = length + fileLength(i);
              }
              return length;
          } else return file.length();
